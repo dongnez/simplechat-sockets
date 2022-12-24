@@ -1,63 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react';
-import './App.css';
 import io from 'socket.io-client';
-import { log } from 'console';
+import UserInput from './components/userInput/UserInput';
+import {useRecoilState} from 'recoil'
+import { roomsAtom, userAtom } from './context/chatStateManagment';
+import Sidebar from './components/sideBar/Sidebar';
+import Chat from './components/chat/Chat';
 
 const socket = io('http://localhost:3001');
 
 function App() {
-  const [isConnected, setIsConnected] = useState(socket.connected);
-  const [lastPong, setLastPong] = useState(null);
-  const [sendMessage, setSendMessage] = useState('');
-  const [allMessages, setAllMessages] = useState<Array<string>>([]);
-  const inputSend = useRef<any>();
+  
+  const [user,setUser] = useRecoilState(userAtom);
 
-  useEffect(() => {
-    /* socket.on('receive_message', (data) => {
-      console.log('Mensaje:', data);
-      setAllMessages((s) => [...s, data]);
-    }); */
-
-    socket.on('receive_message', (data) => {
-      console.log(data);
-      setAllMessages((s) => [...s, data]);
-    });
-  }, [socket]);
-
-  function funSendMessage() {
-    if (sendMessage.trim() === '') return;
-
-    socket.emit('send_message', sendMessage);
-    inputSend.current.value = '';
-    setSendMessage('');
-  }
-
-  function enterPress(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.key === 'Enter') {
-      funSendMessage();
-    }
-  }
+  if(!user) return <UserInput/>
 
   return (
-    <div className="App">
-      <p>Frontend</p>
-      <input
-        ref={inputSend}
-        type={'text'}
-        onChange={(e) => setSendMessage(e.target.value)}
-        onKeyDown={(e) => enterPress(e)}
-      />
-      <button onClick={funSendMessage}>Send</button>
+    <div className="w-screen h-screen flex bg-[#20232B]">
+      
+      <Sidebar user={user} />
+      <Chat user={user} socket={socket}/>
 
-      <>
-        {allMessages.map((item, index) => {
-          return (
-            <div>
-              <p>{item}</p>
-            </div>
-          );
-        })}
-      </>
     </div>
   );
 }

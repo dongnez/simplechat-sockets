@@ -8,12 +8,13 @@ const http = require('http');
 const server = http.createServer(app);
 const cors = require('cors');
 //httpServer.listen(3000);
+const PORT = 3001;
 
 app.use(cors());
 
 const io = new Server(server, {
   cors: {
-    origin: '*',
+    origin: 'http://localhost:3000',
     methods: ['GET', 'POST'],
   },
   // options/
@@ -21,16 +22,17 @@ const io = new Server(server, {
 
 io.on('connection', (socket) => {
   console.log('Un usuario se ha conectado', socket.id);
+  
 
-  socket.on('send_message', (data) => {
-    console.log(data);
-    //io.emit('receive_message', data);
-    socket.broadcast.emit('receive_message', data);
+  socket.on('message', (data) => {
+    console.log('Mensaje',data);
+    
+    socket.broadcast.emit('message', data);
   });
-});
+}); 
 
-server.listen(3001, () => {
-  console.log('Corriendo');
+server.listen(PORT, () => {
+  console.log('Corriendo en Puerto: ' + PORT);
 });
 
 //app.use(express.static('static'));
