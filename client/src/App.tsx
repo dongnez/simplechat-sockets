@@ -1,4 +1,4 @@
-import io from 'socket.io-client';
+import io, { Socket } from 'socket.io-client';
 import UserInput from './components/userInput/UserInput';
 import {useRecoilState} from 'recoil'
 import { roomsAtom, userAtom } from './context/chatStateManagment';
@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="w-screen h-screen flex bg-[#20232B]">
       
-      <Sidebar user={user} />
+      <Sidebar user={user} socket={socket} />
       <Chat user={user} socket={socket}/>
 
     </div>

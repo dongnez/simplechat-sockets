@@ -13,6 +13,11 @@ export const roomsAtom = atom<Array<Room>>({
     default:[]
 })
 
+export const selectedRoomAtom = atom<Room | null>({
+    key:'selectedRoom',
+    default:null
+})
+
 
 export const roomState = selector({
     key:'roomState',
