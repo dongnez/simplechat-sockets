@@ -9,7 +9,36 @@ const PORT = process.env.PORT || 3001;
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const app = express();
 
-const server = http.createServer(app);
+app.use(cors());
+app.use(express.static(join(__dirname,'./client/build')));
+
+/* app.get("*",function(_,res){
+  res.sendFile(
+    path.join(__dirname,"../client/build/index.html"),
+    function (err){
+      if(err)
+        res.status(500).send(err);
+    }
+  )
+}) */
+
+app.get("/",function(_,res){
+  res.sendFile(
+    path.join(__dirname,"./client/build/index.html"),
+    function (err){
+      if(err)
+        res.status(500).send(err);
+    }
+  )
+})
+
+app.get('/api/test',(req,res)=>{
+  res.send("Test Work")
+})
+
+const server = http.createServer(app,{
+  allowEIO3: true
+});
 
 
 const io = new Server(server, {
@@ -38,26 +67,10 @@ io.on('connection', (socket) => {
   });
 }); 
 
-/* server.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log('Server running: ' + `http://localhost:${PORT}` );
-}); */
+});
 
 
-app.use(cors());
-app.use(express.static(join(__dirname,'../client/build')));
 
-app.get("*",function(_,res){
-  res.sendFile(
-    path.join(__dirname,"../client/build/index.html"),
-    function (err){
-      if(err)
-        res.status(500).send(err);
-    }
-  )
-})
 
-app.get('/api/test',(req,res)=>{
-  res.send("Test Work")
-})
-
-app.listen(PORT);

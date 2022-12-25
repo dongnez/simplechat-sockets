@@ -11,10 +11,7 @@ const socket = io();
 
 function App() {
   
-  const [user,setUser] = useRecoilState(userAtom);
-
-  console.log("App Port",process.env.PORT);
-  
+  const [user,setUser] = useRecoilState(userAtom);  
 
   if(!user) return <UserInput socket={socket}/>
 
