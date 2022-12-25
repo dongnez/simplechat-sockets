@@ -63,7 +63,7 @@ const Chat = ({socket,user}:ChatProps) => {
       <svg onClick={()=>setBackRoom(false)} className='md:hidden scale-50 group/back'  width="40" height="60" xmlns="http://www.w3.org/2000/svg" version="1.1">
         <polyline className='group-hover/back:stroke-[#ddd] duration-150 mx-5' points="30 10 10 30 30 50" stroke="rgba(255,255,255,0.5)" stroke-width="6" stroke-linecap="butt" fill="none" stroke-linejoin="round">&gt;</polyline>
       </svg>
-      <p className='text-lg'>{selectedRoom.name}</p>
+      <p className='text-lg font-semibold'>{selectedRoom.name}</p>
     </section>
     
     <div className='flex-1 m-5 px-2 font-sans font-normal  overflow-auto scrollbar '>
@@ -71,7 +71,7 @@ const Chat = ({socket,user}:ChatProps) => {
         return (
           <div key={index}>{user.id ==item.userId ? 
           <div className='flex items-end self-end justify-end my-2'>
-            <p className='break-all w-fit bg-[#B785F5] text-xl px-5 py-2 rounded-lg rounded-br-none'>{item.message}</p>
+            <p className='break-all w-fit bg-[#B785F5] text-xl px-3 py-2 rounded-lg rounded-br-none'>{item.message}</p>
           </div>
           :
           <div className='my-2'>

@@ -44,9 +44,9 @@ const Sidebar = ({user,socket}:SidebarProps) => {
   }
 
   return (
-    <section className='flex flex-col text-white p-5  h-full absolute w-full md:relative md:min-w-[340px] md:w-[340px] bg-[#1c1f27]'>
+    <section className='flex flex-col text-white p-4  h-full absolute w-full md:relative md:min-w-[340px] md:w-[340px] bg-[#1c1f27]'>
         <div className='flex items-center '>
-          <h3 className='font-medium text-2xl flex-1'>User: {user.name}</h3>
+          <h3 className='font-semibold text-2xl flex-1 '>User: {user.name}</h3>
 
           <input type='checkbox' name="hamburger" id='hamburger' className='peer' hidden />
           <label htmlFor='hamburger' className='peer-checked:hamburger block relative z-10 py-6 cursor-pointer '> 
@@ -64,9 +64,9 @@ const Sidebar = ({user,socket}:SidebarProps) => {
         </div>
 
         
-        <section>
-          <input ref={inputJoin} onChange={(e)=>setJoinText(e.target.value)} onKeyDown={(e)=>onEnter(e)} maxLength={20}  placeholder='Join Room' type='text'  className=' mb-3 outline-none border border-gray-100 bg-transparent rounded-md p-2 text-xl'/>
-          <button onClick={joinRoom} className='p-2 bg-[#F2FB89] hover:bg-[#a3ac49] duration-150 text-xl rounded-md ml-2'>👉</button>      
+        <section className='flex items-start mb-3'>
+          <input ref={inputJoin} onChange={(e)=>setJoinText(e.target.value)} onKeyDown={(e)=>onEnter(e)} maxLength={20}  placeholder='Join Room' type='text'  className='outline-none border border-gray-100 bg-transparent rounded-md p-2 text-xl'/>
+          <button onClick={joinRoom} className='p-2 h-full  bg-[#F2FB89] hover:bg-[#a3ac49] duration-150 text-xl rounded-md ml-2'>👉</button>      
         </section>
 
         <div className='flex-1 overflow-auto scrollbar'>
