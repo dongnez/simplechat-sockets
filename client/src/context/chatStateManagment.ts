@@ -18,6 +18,11 @@ export const selectedRoomAtom = atom<Room | null>({
     default:null
 })
 
+export const backRoomAtom = atom<boolean>({
+    key:'backRoom',
+    default:false,
+})
+
 
 export const roomState = selector({
     key:'roomState',

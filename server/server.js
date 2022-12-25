@@ -20,16 +20,20 @@ const io = new Server(server, {
 
 io.on('connection', (socket) => {
   console.log('An user has connected', socket.id);
-  
+
   socket.on('join_room',(data)=>{
-    //console.log('Data:',data);
-    
     socket.join(data.name);
   });
 
+  socket.on('leave_room',(data)=>{
+    console.log('Abandonando..',data);
+    if(data)
+      socket.leave(data.name)
+  })
+
+
   socket.on('message', (data) => {
     console.log('Message',data);
-    
     socket.broadcast.to(data.room).emit('message', data);
   });
 }); 
@@ -37,6 +41,7 @@ io.on('connection', (socket) => {
 server.listen(PORT, () => {
   console.log('Server running: ' + PORT);
 });
+
 
 //app.use(express.static('static'));
 
