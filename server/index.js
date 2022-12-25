@@ -11,9 +11,6 @@ const app = express();
 
 const server = http.createServer(app);
 
-app.use(cors());
-
-app.use(express.static(join(__dirname,'../client/build')));
 
 const io = new Server(server, {
   cors: {
@@ -24,17 +21,17 @@ const io = new Server(server, {
 
 io.on('connection', (socket) => {
   console.log('An user has connected', socket.id);
-
+  
   socket.on('join_room',(data)=>{
     socket.join(data.name);
   });
-
+  
   socket.on('leave_room',(data)=>{
     if(data)
-      socket.leave(data.name)
+    socket.leave(data.name)
   })
-
-
+  
+  
   socket.on('message', (data) => {
     console.log('Message',data);
     socket.broadcast.to(data.room).emit('message', data);
@@ -45,6 +42,10 @@ server.listen(PORT, () => {
   console.log('Server running: ' + `http://localhost:${PORT}` );
 });
 
+
+app.use(cors());
+app.use(express.static(join(__dirname,'../client/build')));
+
 app.get("*",function(_,res){
   res.sendFile(
     path.join(__dirname,"../client/build/index.html"),
@@ -54,3 +55,8 @@ app.get("*",function(_,res){
     }
   )
 })
+
+app.get('/api/test',(req,res)=>{
+  res.send("Test Work")
+})
+
