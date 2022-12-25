@@ -26,7 +26,6 @@ io.on('connection', (socket) => {
   });
 
   socket.on('leave_room',(data)=>{
-    console.log('Abandonando..',data);
     if(data)
       socket.leave(data.name)
   })

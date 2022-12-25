@@ -11,10 +11,10 @@ function App() {
   
   const [user,setUser] = useRecoilState(userAtom);
 
-  if(!user) return <UserInput/>
+  if(!user) return <UserInput socket={socket}/>
 
   return (
-    <div className="w-screen h-screen flex bg-[#20232B]">
+    <div className="w-screen h-screen flex bg-[#20232B] overflow-hidden">
       
       <Sidebar user={user} socket={socket} />
       <Chat user={user} socket={socket}/>

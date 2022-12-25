@@ -20,17 +20,13 @@ const Sidebar = ({user,socket}:SidebarProps) => {
   function joinRoom(){
     if(joinText.trim() === '') return;
     const newRoom:Room ={name:joinText};
-    
-    //* Sockets Join and Leave
-    //selectRoom(newRoom)
-    
-    //if(selectedRoom) socket.emit("leave_room",selectedRoom); //Salimos de una y entramos en otra
-    // socket.emit("join_room",newRoom);
-    // setSelected(newRoom);
 
+    //If you are already in that room
+    const repeat = rooms.findIndex((r)=>r.name == newRoom.name)
+    setJoinText('');
+    if(repeat != -1) return;
 
     setRooms((r)=>[...r,newRoom])
-    setJoinText('');
     inputJoin.current.value = '';
   }
 
@@ -43,20 +39,24 @@ const Sidebar = ({user,socket}:SidebarProps) => {
     setSelected(room);
   }
 
+  function onEnter(e:React.KeyboardEvent<HTMLInputElement>){
+    if(e.key == 'Enter') joinRoom();
+  }
+
   return (
-    <section className='flex flex-col text-white p-5  h-full absolute w-full md:relative md:min-w-[340px] md:w-[340px] bg-[#20232B]'>
+    <section className='flex flex-col text-white p-5  h-full absolute w-full md:relative md:min-w-[340px] md:w-[340px] bg-[#1c1f27]'>
         <div className='flex items-center '>
           <h3 className='font-medium text-2xl flex-1'>User: {user.name}</h3>
 
           <input type='checkbox' name="hamburger" id='hamburger' className='peer' hidden />
-          <label htmlFor='hamburger' className='peer-checked:hamburger block relative z-20 py-6 cursor-pointer md:invisible'> 
+          <label htmlFor='hamburger' className='peer-checked:hamburger block relative z-10 py-6 cursor-pointer '> 
             <div aria-hidden="true" className='m-auto h-0.5 w-6 rounded bg-sky-900 transition duration-300'></div>
             <div aria-hidden="true" className='m-auto mt-2 h-0.5 w-6 rounded bg-sky-900 transition duration-300'></div>
           </label>
           
-          <div className='peer-checked:translate-x-[0] transition duration-200 fixed inset-0 w-full h-full translate-x-[-100%] bg-[#2f323b]'>
+          <div className='peer-checked:translate-x-[0] transition duration-200 fixed inset-0 w-full h-full  md:w-[340px] translate-x-[-100%] bg-[#2f323b]'>
             <div className='flex flex-col items-center justify-center h-full '>
-              <img className='animate-bounce' src={require('../../assets/topg.gif')} alt="this slowpoke moves"  width="250" />
+              <img className='animate-bounce rounded-[3px]' src={require('../../assets/topg.gif')} alt="this slowpoke moves"  width="250" />
               <p className='text-sm'>Made by <a className='text-lg underline decoration-blue-400' href='https://github.com/dongnez'>Gnez</a> </p>
             </div>
           </div>
@@ -65,11 +65,11 @@ const Sidebar = ({user,socket}:SidebarProps) => {
 
         
         <section>
-          <input ref={inputJoin} onChange={(e)=>setJoinText(e.target.value)} placeholder='Join Room' type='text'  className=' my-3 outline-none border border-gray-100 bg-transparent rounded-md p-2 text-xl'/>
+          <input ref={inputJoin} onChange={(e)=>setJoinText(e.target.value)} onKeyDown={(e)=>onEnter(e)} maxLength={20}  placeholder='Join Room' type='text'  className=' mb-3 outline-none border border-gray-100 bg-transparent rounded-md p-2 text-xl'/>
           <button onClick={joinRoom} className='p-2 bg-[#F2FB89] hover:bg-[#a3ac49] duration-150 text-xl rounded-md ml-2'>👉</button>      
         </section>
 
-        <div className='flex-1'>
+        <div className='flex-1 overflow-auto scrollbar'>
           <h3 className='font-medium text-xl'>Rooms</h3>
           {!rooms[0] && <p>No roms</p>}
           <>{rooms.map((item,index)=>{

@@ -36,7 +36,7 @@ const Chat = ({socket,user}:ChatProps) => {
   function funSendMessage() {
     if (sendMessage.trim() === '' || !user ||!selectedRoom) return;
     
-    const newMessage:Message = {message:sendMessage,user:user?.name,room:selectedRoom.name}
+    const newMessage:Message = {message:sendMessage,userId:user.id,userName:user.name,room:selectedRoom.name}
     socket.emit('message', newMessage);
     
     setAllMessages((m)=>[...m,newMessage])
@@ -55,13 +55,13 @@ const Chat = ({socket,user}:ChatProps) => {
     if(!selectedRoom) return <h1 className='text-white rounded-lg  text-center text-5xl w-fit bg-[#101014] p-5 m-auto '>No Selected Room</h1>
 
    return (
-    <div className={`${'max-w-[800px] m-auto  flex flex-col  text-white w-full h-full z-40    fixed md:relative duration-300   md:translate-x-0'}
+    <div className={`${'max-w-[800px] m-auto  flex flex-col  text-white w-full h-full z-20  md:pt-10  fixed md:relative duration-300   md:translate-x-0'}
     ${backRoom ? 'translate-x-0':'translate-x-[100%]'}`}>
     
     <div className='bg-[#1D1E24] rounded-t-2xl flex-1 flex flex-col h-full '>
     <section className='flex bg-[#000000] rounded-t-2xl  items-center gap-2 md:p-3'>
       <svg onClick={()=>setBackRoom(false)} className='md:hidden scale-50 group/back'  width="40" height="60" xmlns="http://www.w3.org/2000/svg" version="1.1">
-        <polyline className='group-hover/back:stroke-red-800 mx-5' points="30 10 10 30 30 50" stroke="rgba(255,255,255,0.5)" stroke-width="6" stroke-linecap="butt" fill="none" stroke-linejoin="round">&gt;</polyline>
+        <polyline className='group-hover/back:stroke-[#ddd] duration-150 mx-5' points="30 10 10 30 30 50" stroke="rgba(255,255,255,0.5)" stroke-width="6" stroke-linecap="butt" fill="none" stroke-linejoin="round">&gt;</polyline>
       </svg>
       <p className='text-lg'>{selectedRoom.name}</p>
     </section>
@@ -69,13 +69,13 @@ const Chat = ({socket,user}:ChatProps) => {
     <div className='flex-1 m-5 px-2 font-sans font-normal  overflow-auto scrollbar '>
       {allMessages.map((item, index) => {
         return (
-          <div key={index}>{user.name ==item.user ? 
+          <div key={index}>{user.id ==item.userId ? 
           <div className='flex items-end self-end justify-end my-2'>
-            <p className='w-fit bg-[#B785F5] text-xl px-5 py-2 rounded-lg rounded-br-none'>{item.message}</p>
+            <p className='break-all w-fit bg-[#B785F5] text-xl px-5 py-2 rounded-lg rounded-br-none'>{item.message}</p>
           </div>
           :
           <div className='my-2'>
-             <span className='text-lime-500 '>{item.user}</span>
+             <span className='text-lime-500 '>{item.userName}</span>
              <p className='break-all bg-[#16171B] text-xl w-fit px-5 py-2 rounded-lg rounded-tl-none'> {item.message}</p>
           </div>
           } </div>
@@ -86,7 +86,7 @@ const Chat = ({socket,user}:ChatProps) => {
     </div>
 
     <div className='flex bg-[#16171B] rounded-md m-2'>
-      <input className=' break-all outline-none bg-transparent p-2 flex-1'
+      <input maxLength={100} className=' break-all outline-none bg-transparent p-2 flex-1'
         placeholder='Enter message' 
         ref={inputSend} type={'textarea'} onChange={(e) => setSendMessage(e.target.value)} onKeyDown={(e) => enterPress(e)}
       />

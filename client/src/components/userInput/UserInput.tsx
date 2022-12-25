@@ -3,7 +3,7 @@ import { User } from '../../interfaces/chatInterfaces';
 import {useSetRecoilState} from 'recoil'
 import { userAtom } from '../../context/chatStateManagment';
 
-const UserInput = () => {
+const UserInput = ({socket}:any) => {
     
     const [name, setName] = useState('');
     const setUser = useSetRecoilState(userAtom);
@@ -11,7 +11,7 @@ const UserInput = () => {
     function changeUser(){
         if(name.trim() === '') return;
 
-        setUser({name});
+        setUser({name,id:socket.id});
     }
 
     return (

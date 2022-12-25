@@ -16,7 +16,10 @@
 
 .scrollbar::-webkit-scrollbar {
     width: 6px;
+    scroll-behavior: smooth;
 }
+
+
 
 .scrollbar::-webkit-scrollbar-track {
     border-radius: 100vh;
