@@ -9,8 +9,6 @@ const PORT = process.env.PORT || 3001;
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const app = express();
 
-console.log(__dirname);
-
 const server = http.createServer(app);
 
 app.use(cors());
@@ -22,7 +20,6 @@ const io = new Server(server, {
     origin: 'http://localhost:3000',
     methods: ['GET', 'POST'],
   },
-  // options/
 });
 
 io.on('connection', (socket) => {
@@ -49,13 +46,3 @@ server.listen(PORT, () => {
 });
 
 
-
-
-/* app.get('/', (req, res) => {
-  
-  res.sendFile(path.resolve('public/index.html'));
-}); */
-
-/* app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-}); */

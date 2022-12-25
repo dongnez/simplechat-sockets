@@ -7,9 +7,14 @@ import Chat from './components/chat/Chat';
 
 const socket = io(`http://localhost:${process.env.PORT || 3001}`);
 
+
+
 function App() {
   
   const [user,setUser] = useRecoilState(userAtom);
+
+  console.log("App Port",process.env.PORT);
+  
 
   if(!user) return <UserInput socket={socket}/>
 
