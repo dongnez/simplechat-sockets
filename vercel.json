@@ -1,0 +1,3 @@
+{
+    "builds": [{ "src": "client/build/index.js", "use": "@now/node-server" }]
+}
