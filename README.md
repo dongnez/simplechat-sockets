@@ -1,3 +1,7 @@
 # simplechat-sockets
 
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/express-simple-tzdcwg)
+Simple socket chat made with 
+* Tailwind
+* Nodejs
+* React
+* Socket.io
