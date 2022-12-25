@@ -2,9 +2,11 @@
   "name": "node-starter",
   "version": "0.0.0",
   "private": true,
+  "type":"module",
   "scripts": {
-    "start": "node server",
-    "dev": "nodemon server"
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js",
+    "buid": "npm run --prefix client build"
   },
   "dependencies": {
     "cors": "^2.8.5",

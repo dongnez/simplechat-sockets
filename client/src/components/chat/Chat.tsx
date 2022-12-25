@@ -61,7 +61,7 @@ const Chat = ({socket,user}:ChatProps) => {
     <div className='bg-[#1D1E24] rounded-t-2xl flex-1 flex flex-col h-full '>
     <section className='flex bg-[#000000] rounded-t-2xl  items-center gap-2 md:p-3'>
       <svg onClick={()=>setBackRoom(false)} className='md:hidden scale-50 group/back'  width="40" height="60" xmlns="http://www.w3.org/2000/svg" version="1.1">
-        <polyline className='group-hover/back:stroke-[#ddd] duration-150 mx-5' points="30 10 10 30 30 50" stroke="rgba(255,255,255,0.5)" stroke-width="6" stroke-linecap="butt" fill="none" stroke-linejoin="round">&gt;</polyline>
+        <polyline className='group-hover/back:stroke-[#ddd] duration-150 mx-5' points="30 10 10 30 30 50" stroke="rgba(255,255,255,0.5)" strokeWidth="6" strokeLinecap="butt" fill="none" strokeLinejoin="round">&gt;</polyline>
       </svg>
       <p className='text-lg font-semibold'>{selectedRoom.name}</p>
     </section>
@@ -86,7 +86,7 @@ const Chat = ({socket,user}:ChatProps) => {
     </div>
 
     <div className='flex bg-[#16171B] rounded-md m-2'>
-      <input maxLength={100} className=' break-all outline-none bg-transparent p-2 flex-1'
+      <input maxLength={300} className=' break-all outline-none bg-transparent p-2 flex-1'
         placeholder='Enter message' 
         ref={inputSend} type={'textarea'} onChange={(e) => setSendMessage(e.target.value)} onKeyDown={(e) => enterPress(e)}
       />

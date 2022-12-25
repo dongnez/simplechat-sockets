@@ -1,14 +1,21 @@
-const express = require('express');
+import express from 'express';
+import path, { join } from 'path';
+import { fileURLToPath } from 'url';
+import { Server }  from 'socket.io'; //* Sockets
+import http  from 'http';
+import cors  from 'cors';
+
+const PORT = process.env.PORT || 3001;
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const app = express();
-const path = require('path');
-const PORT = 3001;
-//Sockets
-const { Server } = require('socket.io');
-const http = require('http');
+
+console.log(__dirname);
+
 const server = http.createServer(app);
-const cors = require('cors');
 
 app.use(cors());
+
+app.use(express.static(join(__dirname,'../client')));
 
 const io = new Server(server, {
   cors: {
@@ -42,7 +49,7 @@ server.listen(PORT, () => {
 });
 
 
-//app.use(express.static('static'));
+
 
 /* app.get('/', (req, res) => {
   

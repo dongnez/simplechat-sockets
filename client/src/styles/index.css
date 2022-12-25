@@ -5,7 +5,9 @@
 @tailwind components;
 @tailwind utilities;
 
-
+*{
+    overflow:hidden;
+}
 
 @layer components{
     .hamburger div:first-child{
