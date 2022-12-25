@@ -13,7 +13,7 @@ const server = http.createServer(app);
 
 app.use(cors());
 
-app.use(express.static(join(__dirname,'../client')));
+app.use(express.static(join(__dirname,'../client/build')));
 
 const io = new Server(server, {
   cors: {
@@ -42,7 +42,7 @@ io.on('connection', (socket) => {
 }); 
 
 server.listen(PORT, () => {
-  console.log('Server running: ' + PORT);
+  console.log('Server running: ' + `http://localhost:${PORT}` );
 });
 
 
