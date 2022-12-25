@@ -36,16 +36,17 @@ app.get('/api/test',(req,res)=>{
   res.send("Test Work")
 })
 
-const server = http.createServer(app,{
-  allowEIO3: true
-});
+const server = http.createServer(app);
 
 
 const io = new Server(server, {
   cors: {
     //origin: 'http://localhost:3000', 
-    // methods: ['GET', 'POST'],
+    transports: ['websocket', 'polling'],
+    credentials: true,
+    methods: ['GET', 'POST'],
   },
+  allowEIO3: true
 });
 
 io.on('connection', (socket) => {

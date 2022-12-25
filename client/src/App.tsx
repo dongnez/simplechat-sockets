@@ -10,8 +10,8 @@ const socket = io();
 
 
 function App() {
-  
-  const [user,setUser] = useRecoilState(userAtom);  
+
+  const [user,setUser] = useRecoilState(userAtom);
 
   if(!user) return <UserInput socket={socket}/>
 
