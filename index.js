@@ -38,9 +38,9 @@ io.on('connection', (socket) => {
   });
 }); 
 
-server.listen(PORT, () => {
+/* server.listen(PORT, () => {
   console.log('Server running: ' + `http://localhost:${PORT}` );
-});
+}); */
 
 
 app.use(cors());
@@ -60,3 +60,4 @@ app.get('/api/test',(req,res)=>{
   res.send("Test Work")
 })
 
+app.listen(PORT);
