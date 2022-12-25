@@ -5,8 +5,8 @@ import { roomsAtom, userAtom } from './context/chatStateManagment';
 import Sidebar from './components/sideBar/Sidebar';
 import Chat from './components/chat/Chat';
 
-const socket = io(`http://localhost:${process.env.PORT || 3001}`);
-
+//const socket = io(`http://localhost:${process.env.PORT || 3001}`);
+const socket = io();
 
 
 function App() {

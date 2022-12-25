@@ -17,8 +17,8 @@ app.use(express.static(join(__dirname,'../client')));
 
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:3000',
-    methods: ['GET', 'POST'],
+    //origin: 'http://localhost:3000', 
+    // methods: ['GET', 'POST'],
   },
 });
 
