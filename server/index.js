@@ -10,24 +10,15 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const app = express();
 
 app.use(cors());
-app.use(express.static(join(__dirname,'./client/build')));
-
-/* app.get("*",function(_,res){
-  res.sendFile(
-    path.join(__dirname,"../client/build/index.html"),
-    function (err){
-      if(err)
-        res.status(500).send(err);
-    }
-  )
-}) */
+app.use(express.static(join(__dirname,'../client/build')));
 
 app.get("/",function(_,res){
   res.sendFile(
-    path.join(__dirname,"./client/build/index.html"),
+    path.join(__dirname,"../client/build/index.html"),
     function (err){
-      if(err)
-        res.status(500).send(err);
+      if(err){
+        //res.status(500).send(err);
+      }
     }
   )
 })
@@ -41,12 +32,13 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    //origin: 'http://localhost:3000', 
-    transports: ['websocket', 'polling'],
-    credentials: true,
-    methods: ['GET', 'POST'],
+    //origin: 'https://simplechat-sockets-dongnez.vercel.app/'+PORT, 
+    //transports: ['websocket', 'polling'],
+    //credentials: true,
+    //methods: ['GET', 'POST',],
   },
-  allowEIO3: true
+  //allowEIO3: true,
+  //allowUpgrades:true
 });
 
 io.on('connection', (socket) => {
